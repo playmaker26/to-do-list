@@ -1,0 +1,168 @@
+/* Universal styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #2173a6;
+  height: 100%;
+  width: 100%;
+}
+
+/* Main structure */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Section styling */
+main header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #94d4fd;
+  width: 100%;
+}
+
+main header img {
+  width: 100%;
+}
+
+main header form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  background-color: #2173a6;
+}
+
+main header form label {
+  font-size: 16px;
+  font-family: Roboto;
+  font-weight: normal;
+  color: #fff;
+}
+
+main header form div {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+main header form div button {
+  width: 105px;
+  font-family: Poppins;
+  font-weight: 500;
+  color: #052133;
+  text-align: center;
+  background-color: #94d4fd;
+  border: none;
+  font-size: 16px;
+}
+
+main header form div input {
+  width: 100%;
+  height: 44px;
+}
+
+main header .ul-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  background-color: #052133;
+}
+
+main header .ul-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #e6f5ff;
+  font-size: 14px;
+  font-family: Roboto;
+  font-weight: bold;
+  width: 100%;
+}
+
+main header .ul-list li div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 180px;
+  background-color: #052133;
+  gap: 18px;
+}
+
+main header .ul-list li div ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+main header .ul-list li div ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+i {
+  font-size: 25px;
+}
+
+main header .ul-list li div ul li span {
+  text-align: center;
+  color: #e6f5ff;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: Roboto;
+}
+
+.save {
+  color: #00ff00;
+}
+
+.edit {
+  color: #94d4fd;
+}
+
+.delete {
+  color: #ff0000;
+}
+
+@media only screen and (max-width: 767px) {
+}
+
+@media only screen and (min-width: 768px) {
+  main header {
+    width: 512px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  main header {
+    width: 500px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  main header {
+    width: 400px;
+  }
+}
