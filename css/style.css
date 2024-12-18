@@ -98,6 +98,10 @@ main header .ul-list li {
   width: 100%;
 }
 
+main header .ul-list li.saved-task {
+  color: #00ff00;
+}
+
 main header .ul-list li div {
   display: flex;
   justify-content: flex-end;
