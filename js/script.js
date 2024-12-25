@@ -17,8 +17,13 @@ let addTask = function() {
             taskInput.style.border = '';
             let input = document.querySelector('#task').value.trim();
             taskInput.value = '';
+
             let li = document.createElement('li');
-            li.textContent = input;
+            let taskTextSpan = document.createElement('span');
+            taskTextSpan.classList.add('task-text');
+           taskTextSpan.textContent = input;
+            li.appendChild(taskTextSpan);
+
             let taskId = Date.now();
             li.setAttribute('data-id', taskId);
             let div = document.createElement('div');
@@ -69,16 +74,19 @@ let controls = function () {
 controls();
 
 let saveTask = function(currentTask) {
-let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-let taskText = currentTask.textContent.trim();
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-if(!tasks.includes(taskText)) {
-    tasks.push(taskText);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    
-}else {
-    alert(`Task already saved: ${taskText}`);
+    let taskTextElement = currentTask.querySelector('.task-text');
+    let taskText = taskTextElement ? taskTextElement.textContent.trim() : '';
+
+    if(!tasks.includes(taskText)) {
+        tasks.push(taskText);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        console.log("After adding current task:", tasks);
+    }else {
+        alert(`Task already saved: ${taskText}`);
+    }
 }
-}
+
 
 
