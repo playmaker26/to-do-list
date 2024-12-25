@@ -1,4 +1,34 @@
+let loadTask = function() {
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
+    tasks.forEach((taskText) => {
+        let li = document.createElement('li');
+        let taskTextSpan = document.createElement('span');
+        taskTextSpan.classList.add('task-text');
+        taskTextSpan.textContent = taskText;
+
+        li.appendChild(taskTextSpan);
+
+        li.classList.add('saved-task');
+        li.style.color = '#00ff00';
+
+        let div = document.createElement('div');
+        div.classList.add('div-container');
+        li.appendChild(div);
+
+        div.innerHTML = `
+        
+        <ul class="ul-control">
+                <li class="save-li"><i class="fa-solid fa-floppy-disk save"></i><span class="save-span">unsave</span></li>
+                <li class="edit-li"><i class="fa-solid fa-pen-to-square"></i><span>Edit</span></li>
+                <li class="delete-li"><i class="fa-solid fa-trash-can delete"></i><span>Delete</span></li>
+            </ul>
+            `;
+            let ul = document.querySelector('.ul-list');
+            ul.appendChild(li)
+    });
+};
+loadTask();
 
 
 let addTask = function() {
@@ -44,11 +74,6 @@ let addTask = function() {
 }
 addTask();
 
-let loadTask = function() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.forEach(addTask);
-    }
-    loadTask();
 
 let controls = function () {
  let ul = document.querySelector('.ul-list');
