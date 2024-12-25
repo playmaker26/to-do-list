@@ -87,6 +87,7 @@ let controls = function () {
             currentTask.classList.remove('saved-task');
             currentTask.style.color = '';
             saveSpan.textContent = 'save';
+            removeTask()
         }else {
             currentTask.classList.add('saved-task');
             currentTask.style.color = '#00ff00';
@@ -114,4 +115,6 @@ let saveTask = function(currentTask) {
 }
 
 
-
+let removeTask = function() {
+localStorage.removeItem('tasks');
+}
