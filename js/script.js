@@ -87,7 +87,7 @@ let controls = function () {
             currentTask.classList.remove('saved-task');
             currentTask.style.color = '';
             saveSpan.textContent = 'save';
-            removeTask()
+            removeTask(currentTask);
         }else {
             currentTask.classList.add('saved-task');
             currentTask.style.color = '#00ff00';
@@ -115,6 +115,12 @@ let saveTask = function(currentTask) {
 }
 
 
-let removeTask = function() {
-localStorage.removeItem('tasks');
+let removeTask = function(currentTask) {
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+let taskTextElement = currentTask.querySelector('.task-text');
+let taskText = taskTextElement ? taskTextElement.textContent.trim() : '';
+
+tasks = tasks.filter(task => task !== taskText);
+
+localStorage.setItem('tasks', JSON.stringify(tasks));
 }
