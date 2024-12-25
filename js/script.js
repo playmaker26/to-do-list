@@ -34,70 +34,87 @@ loadTask();
 let addTask = function() {
     let taskInput = document.querySelector('#task');
     let addButton = document.querySelector('.btn-add');
-    
+
     addButton.addEventListener('click', (e) => {
         if(taskInput.value.trim() === '') {
             e.preventDefault();
-            document.querySelector('.form-label').textContent = 'Please type a task';
+            document.querySelector('.form-label').textContent ='Please type a task';
             taskInput.style.border = '1px solid #FF0000';
         }else {
             e.preventDefault();
-            
-            document.querySelector('.form-label').textContent = 'Create a Task';
-            taskInput.style.border = '';
+
+            document.querySelector('.form-label').textContent ='Create a Task';
+            taskInput.style.border = ''; 
             let input = document.querySelector('#task').value.trim();
             taskInput.value = '';
 
             let li = document.createElement('li');
             let taskTextSpan = document.createElement('span');
             taskTextSpan.classList.add('task-text');
-           taskTextSpan.textContent = input;
-            li.appendChild(taskTextSpan);
+            taskTextSpan.textContent = input;
 
-            let taskId = Date.now();
-            li.setAttribute('data-id', taskId);
+            li.setAttribute('data-id', Date.now());
+            li.classList.add('task-item');
+
             let div = document.createElement('div');
             div.classList.add('div-container');
-            let ul = document.querySelector('.ul-list');
-            ul.appendChild(li);
-            li.appendChild(div);
-
             div.innerHTML = `
             <ul class="ul-control">
                 <li class="save-li"><i class="fa-solid fa-floppy-disk save"></i><span class="save-span">save</span></li>
-                <li class="edit-li"><i class="fa-solid fa-pen-to-square"></i><span>Edit</span></li>
-                <li class="delete-li"><i class="fa-solid fa-trash-can delete"></i><span>Delete</span></li>
+                <li class="edit-li"><i class="fa-solid fa-pen-to-square edit"></i><span class="edit-span">Edit</span></li>
+                <li class="delete-li"><i class="fa-solid fa-trash-can delete"></i><span class="delete-span">Delete</span></li>
             </ul>
         `;
+
+        li.appendChild(taskTextSpan);
+        li.appendChild(div);
+
+        let ul = document.querySelector('.ul-list');
+        ul.appendChild(li);
         }
     });
-}
+};
 addTask();
 
 
-let controls = function () {
- let ul = document.querySelector('.ul-list');
+let controls = function() {
+    let ul = document.querySelector('.ul-list');
 
- ul.addEventListener('click', (e) => {
-    if(e.target.classList.contains('save')) {
-        let currentTask = e.target.closest('.ul-control').parentElement.parentElement;
+    ul.addEventListener('click', (e) => {
+        let currentTask = e.target.closest('.ul-control')?.parentElement?.parentElement;
+        if (!currentTask) return;
+
         let saveSpan = currentTask.querySelector('.save-span');
+        let taskText = currentTask.querySelector('.task-text');
+        let taskInput = document.querySelector('#task');
 
-        if(currentTask.classList.contains('saved-task')) {
-            currentTask.classList.remove('saved-task');
-            currentTask.style.color = '';
-            saveSpan.textContent = 'save';
-            removeTask(currentTask);
-        }else {
-            currentTask.classList.add('saved-task');
-            currentTask.style.color = '#00ff00';
-            saveSpan.textContent = 'unsave'; 
-            saveTask(currentTask);
+        if (e.target.classList.contains('save')) {
+            if (currentTask.classList.contains('saved-task')) {
+                currentTask.classList.remove('saved-task');
+                currentTask.style.color = '';
+                saveSpan.textContent = 'save';
+                removeTask(currentTask);
+            }else {
+                currentTask.classList.add('saved-task');
+                currentTask.style.color = '#00ff00';
+                saveSpan.textContent = 'unsave';
+                saveTask(currentTask);
+            }
         }
-    }
- });
-};
+
+        if (e.target.classList.contains('edit')) {
+            if (taskText) {
+                taskInput.value = taskText.textContent.trim();
+                taskInput.style.color = '#2173a6';
+                currentTask.remove();
+                removeTask(currentTask);
+            }
+        }
+    });
+}
 controls();
+
+
 
 let saveTask = function(currentTask) {
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
