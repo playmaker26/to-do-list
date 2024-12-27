@@ -26,6 +26,66 @@ main {
   width: 100%;
 }
 
+dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff;
+  border: none;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #052133;
+  font-family: Roboto;
+}
+
+dialog div {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+  gap: 0;
+}
+
+dialog .delete-task {
+  gap: 18px;
+}
+
+dialog div button {
+  text-align: center;
+  font-size: 16px;
+  font-family: Roboto;
+  padding: 10px;
+  border: none;
+  appearance: none;
+  outline: none;
+}
+
+.confirm-delete {
+  background-color: #ff0000;
+  color: #fff;
+}
+
+.cancel-delete {
+  background-color: #0178bd;
+  color: #fff;
+}
+
+.confirm-save {
+  background-color: #00ff00;
+  color: #052133;
+}
+
 /* Section styling */
 main header {
   display: flex;
@@ -151,10 +211,17 @@ main header .ul-list li div ul li span {
 }
 
 @media only screen and (max-width: 767px) {
+  dialog {
+    width: 100%;
+  }
 }
 
 @media only screen and (min-width: 768px) {
   main header {
+    width: 512px;
+  }
+
+  dialog {
     width: 512px;
   }
 }
@@ -163,10 +230,18 @@ main header .ul-list li div ul li span {
   main header {
     width: 500px;
   }
+
+  dialog {
+    width: 500px;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
   main header {
+    width: 400px;
+  }
+
+  dialog {
     width: 400px;
   }
 }

@@ -87,6 +87,23 @@ let controls = function() {
         let saveSpan = currentTask.querySelector('.save-span');
         let taskText = currentTask.querySelector('.task-text');
         let taskInput = document.querySelector('#task');
+        let dialog = document.createElement('dialog');
+
+        const modal = {
+            deleteMessage: 'Are you sure you want to delete this task',
+            confirmButton: 'Confirm',
+            cancelButton: 'Cancel',
+            warningMessage: 'Your task is saved. A saved task can’t be deleted. Please unsave and delete.'
+        }
+
+        let confirmSave = document.createElement('button');
+        confirmSave.classList.add('confirm-save');
+        
+        let confirmDelete = document.createElement('button');
+        confirmDelete.classList.add('confirm-delete');
+
+        let cancelDelete = document.createElement('button');
+        cancelDelete.classList.add('cancel-delete');
 
         if (e.target.classList.contains('save')) {
             if (currentTask.classList.contains('saved-task')) {
@@ -108,6 +125,55 @@ let controls = function() {
                 taskInput.style.color = '#2173a6';
                 currentTask.remove();
                 removeTask(currentTask);
+            }else {
+                taskInput.style.color = ''; 
+            }
+        }
+
+        if(e.target.classList.contains('delete')) {
+            if(currentTask.classList.contains('saved-task')) {
+
+                dialog.innerHTML = `
+                <p>${modal.warningMessage}</p>
+
+                <div class= 'save-task'>
+                <button class="confirm-save">${modal.confirmButton}</button>
+                </div>
+                `;
+                document.body.appendChild(dialog);
+                dialog.showModal();
+
+                dialog.querySelector('.confirm-save').addEventListener('click', () => {
+                    currentTask.classList.remove('saved-task');
+                    currentTask.style.color = '';
+                    saveSpan.textContent = 'save';
+                    removeTask(currentTask);
+                    dialog.close();
+                    dialog.remove();
+                });
+            }else {
+                dialog.innerHTML = `
+                <p>${modal.deleteMessage}</p>
+
+                <div class= 'delete-task'>
+                <button class="confirm-delete">${modal.confirmButton}</button>
+                <button class="cancel-delete">${modal.cancelButton}</button>
+                </div>
+                `;
+                document.body.appendChild(dialog);
+                dialog.showModal();
+
+                dialog.querySelector('.confirm-delete').addEventListener('click', () => {
+                    currentTask.remove();
+                    removeTask(currentTask);
+                    dialog.close();
+                    dialog.remove();
+                });
+
+                dialog.querySelector('.cancel-delete').addEventListener('click', () => {
+                    dialog.close();
+                    dialog.remove();
+                });
             }
         }
     });
@@ -125,7 +191,6 @@ let saveTask = function(currentTask) {
     if(!tasks.includes(taskText)) {
         tasks.push(taskText);
         localStorage.setItem('tasks', JSON.stringify(tasks));
-        console.log("After adding current task:", tasks);
     }else {
         alert(`Task already saved: ${taskText}`);
     }
